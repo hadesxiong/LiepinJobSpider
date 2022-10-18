@@ -4,11 +4,7 @@ import time, json, pymysql
 def cmp_etl(mysql_config, redis_db, logger_obj):
 
     # mysql_ins配置
-    mysql_ins = pymysql.connect(host=mysql_config['host'],
-                                port=mysql_config['port'],
-                                user=mysql_config['user'],
-                                password=mysql_config['password'],
-                                database=mysql_config['database'])
+    mysql_ins = pymysql.connect(host=mysql_config['host'],port=mysql_config['port'],user=mysql_config['user'],password=mysql_config['password'],database=mysql_config['database'])
     mysql_cursor = mysql_ins.cursor()
 
     # 获取cmp_list/cmp_histroy-爬取/历史
@@ -276,10 +272,10 @@ def jd_etl(mysql_config, redis_db, logger_obj):
 
     jd_list = redis_db.hgetall('jd_list')
 
-    for each_jd in jd_list:
+    for each_jd in jd_list.items():
 
-        job_id = list(each_jd.keys())[0]
-        job_detail = list(each_jd.values())[0]
+        job_id = each_jd[0]
+        job_detail = each_jd[1]
         job_detailid = f'JD_{str(job_id)}'
 
         jd_fsql = f'SELECT JOBDETAIL_ID FROM JOBDETAIL WHERE JOBDETAIL_ID = {job_detailid}'
