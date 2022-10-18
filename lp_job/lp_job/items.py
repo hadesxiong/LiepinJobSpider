@@ -20,6 +20,7 @@ class JobItem(scrapy.Item):
     job_kind = scrapy.Field() #工作种类？待定
     rec_id = scrapy.Field() #猎头/hrid
     cmp_id = scrapy.Field() #公司id
+    job_refer = scrapy.Field() #搜索关键字
 
 class RecItem(scrapy.Item):
 
