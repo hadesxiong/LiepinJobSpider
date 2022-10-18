@@ -165,9 +165,6 @@ class JobCardPipeline:
         # joblabel信息
         jl_res = self.redis_db.hsetnx('jl_list', job_item['job_id'],','.join(job_item['job_label']))
 
-        # jobcmp信息
-        jc_res = self.redis_db.hsetnx('job_cmp', job_item['job_id'],cmp_item['cmp_id'])
-
         return item
 
     def close_spider(self, spider):
@@ -177,7 +174,6 @@ class JobCardPipeline:
             print(self.df)
             self.df.to_csv('./dataframe_result.csv')
 
-        self.mysql_ins.close()
         pass
 
 class JobDetailPipeline:
