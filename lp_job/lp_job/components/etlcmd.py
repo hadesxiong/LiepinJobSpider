@@ -280,24 +280,23 @@ def jd_etl(mysql_config, redis_db, logger_obj):
 
         job_id = list(each_jd.keys())[0]
         job_detail = list(each_jd.values())[0]
+        job_detailid = f'JD_{str(job_id)}'
 
-        jd_fsql = f'SELECT JOBDETAIL_ID_ID FROM JOBDETAIL WHERE JOBCARD_ID = {job_id}'
+        jd_fsql = f'SELECT JOBDETAIL_ID FROM JOBDETAIL WHERE JOBDETAIL_ID = {job_detailid}'
         jd_fres = mysql_cursor.execute(jd_fsql)
 
         if jd_fres == 0:
 
-            jd_table = '`JOBDETAIL`,`JOBCARD_ID`'
-            jd_value = '"{0}",{1}'.format(job_detail, job_id)
+            jd_table = '`JOBDETAIL_ID`,`JOBDETAIL`'
+            jd_value = '"{0}","{1}"'.format(job_detailid, job_detail)
             jd_wsql = f"INSERT INTO `JOBDETAIL` ({jd_table}) VALUES ({jd_value})"
             mysql_cursor.execute(jd_wsql)
             mysql_ins.commit()
 
             redis_db.hdel('jd_list', job_id)
 
-            jd_id = mysql_cursor.execute(jd_fsql).fetchall()[0].get('jobdetail_id')
-
             jc_table = '`JOBDETAIL_ID_ID`'
-            jc_value = '{0}'.format(jd_id)
+            jc_value = '"{0}"'.format(job_detailid)
             jc_wsql = f"INSERT INTO `JOBCARD` ({jc_table}) VALUES ({jc_value}) WHERE `JOB_ID` = {job_id}"
             mysql_cursor.execute(jc_wsql)
             mysql_ins.commit()
