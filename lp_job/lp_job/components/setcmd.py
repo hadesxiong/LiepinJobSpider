@@ -28,7 +28,7 @@ def setcmd_jd(redis_db, logger_obj):
         jobid_list = redis_db.hgetall('joblink_list')
         for each_obj in jobid_list.items():
             job_id = each_obj[0]
-            job_link = json.dumps(each_obj[1]).get('link')
+            job_link = json.loads(each_obj[1]).get('link')
             set_res = redis_db.hsetnx('lpjd_cmdlist', job_id, f'scrapy crawl lp_jobdetail -a link={job_link} -a job_id={job_id}')
             logger_obj.info(
                 f'jobid:{job_id},link:{job_link},insert result: {set_res}.')
