@@ -62,7 +62,7 @@ cp.read('../configs/args.cfg')
 keyword_list = cp.get('keyword', 'keyword_list').split(',')
 city_list = cp.get('city', 'city_list').split(',')
 
-job_setcmdJC = block_sched.add_job(setcmd_jc,"cron",day_of_week='mon-sun',hour=3,minute=15,kwargs={'redis_db': redis_db,'logger_obj': scheduler_log,'keyword_list': keyword_list,'city_list': city_list})
+job_setcmdJC = block_sched.add_job(setcmd_jc,"cron",day_of_week='mon-sun',hour=3,minute=15,kwargs={'redis_db': redis_db,'logger_obj': scheduler_log,'keyword_list': keyword_list,'city_list': city_list},next_run_time=datetime.datetime.now())
 
 job_crwalcmdJC = block_sched.add_job(crawl_jc,"interval",seconds=300,kwargs={'redis_db': redis_db,'logger_obj': scheduler_log})
 
