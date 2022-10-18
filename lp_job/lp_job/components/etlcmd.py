@@ -277,6 +277,6 @@ def jd_etl(mysql_config, redis_db, logger_obj):
 
             jc_table = '`JOBDETAIL_ID_ID`'
             jc_value = '"{0}"'.format(job_detailid)
-            jc_wsql = f"INSERT INTO `JOBCARD` ({jc_table}) VALUES ({jc_value}) WHERE `JOB_ID` = '{job_id}'"
+            jc_wsql = f"INSERT INTO `JOBCARD` ({jc_table}) VALUES ({jc_value}) WHERE `JOB_ID` = {int(job_id)}"
             mysql_cursor.execute(jc_wsql)
             mysql_ins.commit()
