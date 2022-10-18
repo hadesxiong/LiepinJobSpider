@@ -70,11 +70,7 @@ def cmp_etl(mysql_config, redis_db, logger_obj):
 def rec_etl(mysql_config, redis_db, logger_obj):
 
     # mysql_ins配置
-    mysql_ins = pymysql.connect(host=mysql_config['host'],
-                                port=mysql_config['port'],
-                                user=mysql_config['user'],
-                                password=mysql_config['password'],
-                                database=mysql_config['database'])
+    mysql_ins = pymysql.connect(host=mysql_config['host'],port=mysql_config['port'],user=mysql_config['user'],password=mysql_config['password'],database=mysql_config['database'])
     mysql_cursor = mysql_ins.cursor()
 
     # 获取rec_list/rec_history
@@ -117,11 +113,7 @@ def rec_etl(mysql_config, redis_db, logger_obj):
 def jc_etl(mysql_config, redis_db, logger_obj):
 
     # mysql_ins配置
-    mysql_ins = pymysql.connect(host=mysql_config['host'],
-                                port=mysql_config['port'],
-                                user=mysql_config['user'],
-                                password=mysql_config['password'],
-                                database=mysql_config['database'])
+    mysql_ins = pymysql.connect(host=mysql_config['host'],port=mysql_config['port'],user=mysql_config['user'],password=mysql_config['password'],database=mysql_config['database'])
     mysql_cursor = mysql_ins.cursor()
 
     # 获取jc_list/jc_history-爬取/历史
@@ -212,11 +204,7 @@ def jc_etl(mysql_config, redis_db, logger_obj):
 def jl_etl(mysql_config, redis_db, logger_obj):
 
     # mysql_ins配置
-    mysql_ins = pymysql.connect(host=mysql_config['host'],
-                                port=mysql_config['port'],
-                                user=mysql_config['user'],
-                                password=mysql_config['password'],
-                                database=mysql_config['database'])
+    mysql_ins = pymysql.connect(host=mysql_config['host'],port=mysql_config['port'],user=mysql_config['user'],password=mysql_config['password'],database=mysql_config['database'])
     mysql_cursor = mysql_ins.cursor()
 
     jl_list = redis_db.hgetall('jl_list')
@@ -263,11 +251,7 @@ def jl_etl(mysql_config, redis_db, logger_obj):
 def jd_etl(mysql_config, redis_db, logger_obj):
 
     # mysql_ins配置
-    mysql_ins = pymysql.connect(host=mysql_config['host'],
-                                port=mysql_config['port'],
-                                user=mysql_config['user'],
-                                password=mysql_config['password'],
-                                database=mysql_config['database'])
+    mysql_ins = pymysql.connect(host=mysql_config['host'],port=mysql_config['port'],user=mysql_config['user'],password=mysql_config['password'],database=mysql_config['database'])
     mysql_cursor = mysql_ins.cursor()
 
     jd_list = redis_db.hgetall('jd_list')
@@ -278,7 +262,7 @@ def jd_etl(mysql_config, redis_db, logger_obj):
         job_detail = each_jd[1]
         job_detailid = f'JD_{str(job_id)}'
 
-        jd_fsql = f'SELECT JOBDETAIL_ID FROM JOBDETAIL WHERE JOBDETAIL_ID = {job_detailid}'
+        jd_fsql = f'SELECT JOBDETAIL_ID FROM JOBDETAIL WHERE JOBDETAIL_ID = "{job_detailid}"'
         jd_fres = mysql_cursor.execute(jd_fsql)
 
         if jd_fres == 0:
