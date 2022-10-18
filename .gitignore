@@ -1,6 +1,6 @@
 *.pyc
 .DS_Store
 .vscode/
-.log
+*.log
 logs/
 scheduler.log
