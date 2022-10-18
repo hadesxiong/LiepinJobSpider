@@ -78,6 +78,6 @@ job_jcETL = block_sched.add_job(jc_etl,"interval",seconds=300,kwargs={'mysql_con
 
 job_jlETL = block_sched.add_job(jl_etl,"interval",seconds=300,kwargs={'mysql_config': mysql_config,'redis_db': redis_db,'logger_obj': scheduler_log})
 
-job_jdETL = block_sched.add_job(jd_etl,"interval",seconds=300,kwargs={'mysql_config': mysql_config,'redis_db': redis_db,'logger_obj': scheduler_log})
+job_jdETL = block_sched.add_job(jd_etl,"interval",seconds=30,kwargs={'mysql_config': mysql_config,'redis_db': redis_db,'logger_obj': scheduler_log})
 
 block_sched.start()
