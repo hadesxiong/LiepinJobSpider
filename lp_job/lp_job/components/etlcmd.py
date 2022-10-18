@@ -284,7 +284,7 @@ def jd_etl(mysql_config, redis_db, logger_obj):
         jd_fsql = f'SELECT JOBDETAIL_ID_ID FROM JOBDETAIL WHERE JOBCARD_ID = {job_id}'
         jd_fres = mysql_cursor.execute(jd_fsql)
 
-        if len(jd_fres) == 0:
+        if jd_fres == 0:
 
             jd_table = '`JOBDETAIL`,`JOBCARD_ID`'
             jd_value = '"{0}",{1}'.format(job_detail, job_id)
