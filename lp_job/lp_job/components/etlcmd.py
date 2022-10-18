@@ -141,7 +141,10 @@ def jc_etl(mysql_config, redis_db, logger_obj):
                 # 薪资面议
                 # 30-40k
                 job_salary = jc_data['job_salary']
-                if '-' in job_salary and '·' in job_salary:
+                if '/天' in job_salary:
+                    job_salary_list = [0, 0]
+                    job_salary_count = 0
+                elif '-' in job_salary and '·' in job_salary:
                     job_salary_list = job_salary[:-4].strip('k').split('-')
                     job_salary_count = int(job_salary[-3:-1])
                 elif '-' in job_salary and '·' not in job_salary:
