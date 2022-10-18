@@ -64,7 +64,8 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'lp_job.pipelines.JobCardPipeline': 300
+   'lp_job.pipelines.JobCardPipeline': 300,
+   'lp_job.pipelines.JobDetailPipeline': 400
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
