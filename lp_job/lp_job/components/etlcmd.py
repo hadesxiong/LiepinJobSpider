@@ -271,7 +271,7 @@ def jd_etl(mysql_config, redis_db, logger_obj):
         if jd_fres == 0:
 
             jd_table = '`JOBDETAIL_ID`,`JOBDETAIL`'
-            jd_value = '"{0}","{1}"'.format(job_detailid, job_detail)
+            jd_value = "'{0}','{1}'".format(job_detailid, job_detail)
             jd_wsql = f"INSERT INTO `JOBDETAIL` ({jd_table}) VALUES ({jd_value})"
             mysql_cursor.execute(jd_wsql)
             mysql_ins.commit()
