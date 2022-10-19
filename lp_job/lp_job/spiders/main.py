@@ -1,28 +1,30 @@
-import scrapy, json
+import scrapy, json,os
+
+from scrapy.utils.project import get_project_settings
 
 
 class jobItemSpider(scrapy.Spider):
 
     name = 'lp_jobcard'
 
-    custom_settings = {
-        'ITEM_PIPELINES':{
-            'lp_job.pipelines.JobCardPipeline': 300
-        }
-    }
+    # custom_settings = {
+    #     'ITEM_PIPELINES':{
+    #         'lp_job.pipelines.JobCardPipeline': 300
+    #     }
+    # }
 
-    def __init__(self, key_word, file_mark=False, city=410):
+    # settings = get_project_settings()
+    # print(os.getcwd())
+    # print(settings.get('PROXY_SETTINGS'))
+
+    def __init__(self,key_word,city, file_mark=False):
 
         self.url = "https://apic.liepin.com/api/com.liepin.searchfront4c.pc-search-job"
-        self.key_word = key_word
+        # self.key_word = key_word
         self.file_mark = file_mark
+        self.key_word = key_word
         self.city = city
-        # 上海020
-        # 北京010
-        # 深圳050090
-        # 杭州070020
-        # 成都280020
-        # 武汉170020
+
 
         self.request_body = {
             "data": {
@@ -75,36 +77,40 @@ class jobItemSpider(scrapy.Spider):
 
     def start_requests(self):
 
-        yield scrapy.Request(url=self.url,
-                             method='POST',
-                             body=json.dumps(self.request_body),
-                             headers=self.request_headers,
-                             callback=self.basic_parse)
+        # yield scrapy.Request(url=self.url,
+        #                      method='POST',
+        #                      body=json.dumps(self.request_body),
+        #                      headers=self.request_headers,
+        #                      callback=self.basic_parse)
+        # pass
+        yield scrapy.Request(url="http://myip.ipip.net/",method="GET",headers=self.request_headers,callback=self.basic_parse)
 
     def basic_parse(self, response):
 
-        r_data = json.loads(response.text)
-        main_data = r_data.get('data').get('data')
-        page_data = r_data.get('data').get('pagination')
-        jobCard_data = main_data.get('jobCardList')
+        # r_data = json.loads(response.text)
+        # main_data = r_data.get('data').get('data')
+        # page_data = r_data.get('data').get('pagination')
+        # jobCard_data = main_data.get('jobCardList')
+        print(self.key_word)
+        print(response.text)
 
-        for each_job in jobCard_data:
-            # 引入关键词拼接
-            yield ({'item':each_job,'key_word':self.key_word})
+        # for each_job in jobCard_data:
+        #     # 引入关键词拼接
+        #     yield ({'item':each_job,'key_word':self.key_word})
 
-        cur_page = page_data.get('currentPage')
-        total_page = page_data.get('totalPage')
+        # cur_page = page_data.get('currentPage')
+        # total_page = page_data.get('totalPage')
 
-        if cur_page < total_page - 1:
+        # if cur_page < total_page - 1:
 
-            self.request_body['data']['mainSearchPcConditionForm'][
-                'currentPage'] += 1
-            print(self.request_body)
-            yield scrapy.Request(url=self.url,
-                                 method='POST',
-                                 body=json.dumps(self.request_body),
-                                 headers=self.request_headers,
-                                 callback=self.basic_parse)
+        #     self.request_body['data']['mainSearchPcConditionForm'][
+        #         'currentPage'] += 1
+        #     print(self.request_body)
+        #     yield scrapy.Request(url=self.url,
+        #                          method='POST',
+        #                          body=json.dumps(self.request_body),
+        #                          headers=self.request_headers,
+        #                          callback=self.basic_parse)
 
 class JobDetailSpider(scrapy.Spider):
 
