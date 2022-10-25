@@ -92,8 +92,8 @@ class jobItemSpider(scrapy.Spider):
 
         for each_job in jobCard_data:
             # 引入关键词拼接
-            # yield ({'item':each_job,'key_word':self.key_word})
-            print({'item':each_job,'key_word':self.key_word})
+            yield ({'item':each_job,'key_word':self.key_word})
+            # print({'item':each_job,'key_word':self.key_word})
 
         cur_page = page_data.get('currentPage')
         total_page = page_data.get('totalPage')
