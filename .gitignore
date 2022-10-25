@@ -5,3 +5,4 @@
 logs/
 scheduler.log
 lp_job/lp_job/configs/
+settings.py
