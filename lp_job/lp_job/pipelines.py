@@ -7,9 +7,10 @@
 from itemadapter import ItemAdapter
 from lp_job.items import JobItem, CmpItem, RecItem
 from scrapy.exporters import CsvItemExporter
+from scrapy.utils.project import get_project_settings
 
 import pandas as pd
-import pymysql, time, redis, configparser, json, sys, os
+import pymysql, time, redis, json, sys, os
 
 print(os.getcwd())
 
@@ -17,26 +18,28 @@ print(os.getcwd())
 sys.path.append('../')
 
 # configparser实例
-cp = configparser.ConfigParser()
+# cp = configparser.ConfigParser()
 
 # 读取配置文件-db
-cp.read('../configs/db.cfg')
+# cp.read('../configs/db.cfg')
 
-mysql_config = {
-    'host': cp.get('mysql_cfg', 'host'),
-    'port': int(cp.get('mysql_cfg', 'port')),
-    'user': cp.get('mysql_cfg', 'user'),
-    'password': cp.get('mysql_cfg', 'password'),
-    'database': cp.get('mysql_cfg', 'database')
-}
+# mysql_config = {
+#     'host': cp.get('mysql_cfg', 'host'),
+#     'port': int(cp.get('mysql_cfg', 'port')),
+#     'user': cp.get('mysql_cfg', 'user'),
+#     'password': cp.get('mysql_cfg', 'password'),
+#     'database': cp.get('mysql_cfg', 'database')
+# }
 
-redis_config = {
-    'host': cp.get('redis_cfg', 'host'),
-    'port': int(cp.get('redis_cfg', 'port')),
-    'user': '',
-    'password': cp.get('redis_cfg', 'password'),
-    'db': int(cp.get('redis_cfg', 'db'))
-}
+# redis_config = {
+#     'host': cp.get('redis_cfg', 'host'),
+#     'port': int(cp.get('redis_cfg', 'port')),
+#     'user': '',
+#     'password': cp.get('redis_cfg', 'password'),
+#     'db': int(cp.get('redis_cfg', 'db'))
+# }
+
+settings = get_project_settings()
 
 
 class JobCardPipeline:
@@ -51,12 +54,12 @@ class JobCardPipeline:
 
         # redis 数据库
         self.redis_pool = redis.ConnectionPool(
-            host=redis_config['host'],
-            port=redis_config['port'],
-            db=redis_config['db'],
-            password=redis_config['password'],
+            host=settings.get('REDIS_HOST'),
+            port=settings.get('REDIS_PORT'),
+            db=settings.get('REDIS_DB_STORGE'),
+            password=settings.get('password'),
             decode_responses=True)
-        self.redis_db = redis.Redis(connection_pool=self.redis_pool)
+        self.redis_db =  redis.Redis(connection_pool=self.redis_pool)
         pass
 
     def process_item(self, item, spider):
@@ -181,12 +184,12 @@ class JobDetailPipeline:
     def open_spider(self,spider):
 
         self.redis_pool = redis.ConnectionPool(
-            host=redis_config['host'],
-            port=redis_config['port'],
-            db=redis_config['db'],
-            password=redis_config['password'],
+            host=settings.get('REDIS_HOST'),
+            port=settings.get('REDIS_PORT'),
+            db=settings.get('REDIS_DB_STORGE'),
+            password=settings.get('password'),
             decode_responses=True)
-        self.redis_db = redis.Redis(connection_pool=self.redis_pool)
+        self.redis_db =  redis.Redis(connection_pool=self.redis_pool)
         pass
 
     def process_item(self,item,spider):

@@ -7,6 +7,7 @@ from scrapy import signals
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+import redis,random
 
 
 class LpJobSpiderMiddleware:
@@ -101,3 +102,21 @@ class LpJobDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+class ProxiesMiddleware:
+    def __init__(self, settings):
+        # ipproxy_pool数据库
+        self.redis_pool = redis.ConnectionPool(host=settings.get('REDIS_HOST'),port=settings.get('REDIS_PORT'),password=settings.get('REDIS_PASSWORD'),db=settings.get('REDIS_DB_COMMON'),decode_responses=True)
+        self.redis_db = redis.Redis(connection_pool=self.redis_pool)
+        pass
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(crawler.settings)
+
+    def process_request(self, request, spider):
+        ipproxy_list = list(self.redis_db.hgetall('ipproxy_list').keys())
+        random_ip = ipproxy_list[random.randrange(0,len(ipproxy_list))]
+        print(random_ip)
+        # request.meta['proxy'] = "http://188.132.222.6:8080"
+        request.meta['proxy'] = random_ip
