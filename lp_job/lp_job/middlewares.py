@@ -9,6 +9,7 @@ from scrapy import signals
 from itemadapter import is_item, ItemAdapter
 import redis,random
 
+from twisted.internet.error import TCPTimedOutError,TimeoutError
 
 class LpJobSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -114,9 +115,24 @@ class ProxiesMiddleware:
     def from_crawler(cls, crawler):
         return cls(crawler.settings)
 
-    def process_request(self, request, spider):
+    # def process_request(self, request, spider):
+    #     ipproxy_list = list(self.redis_db.hgetall('ipproxy_list').keys())
+    #     random_ip = ipproxy_list[random.randrange(0,len(ipproxy_list))]
+    #     print(random_ip)
+    #     # request.meta['proxy'] = "http://188.132.222.6:8080"
+    #     request.meta['proxy'] = random_ip
+    
+    def process_exception(self,request,exception,spider):
+        if isinstance(exception,TimeoutError):
+            self.process_request_back(request,spider)
+            return request
+
+        elif isinstance(exception,TCPTimedOutError):
+            self.process_request_back(request,spider)
+            return request
+
+    def process_request_back(self,request,spider):
         ipproxy_list = list(self.redis_db.hgetall('ipproxy_list').keys())
         random_ip = ipproxy_list[random.randrange(0,len(ipproxy_list))]
-        print(random_ip)
         # request.meta['proxy'] = "http://188.132.222.6:8080"
         request.meta['proxy'] = random_ip

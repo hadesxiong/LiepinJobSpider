@@ -295,7 +295,7 @@ class JobCardPipeline:
         mysql_ins.commit()
 
         # jobcard写入,16
-        jc_sql = "INSERT INTO JOBCARD (JOBCARD_ID,JOB_NAME,JOB_SALARY_MIN,JOB_SALARY_MAX,JOB_SALARY_COUNT,JOB_EDU,JOB_CITY,JOB_DQ,JOB_LINK,JOB_KIND,JOB_EXP_MIN,JOB_EXP_MAX,JOB_UPDATE,CMP_ID_ID,REC_ID_ID,JOB_REFER) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,)"
+        jc_sql = "INSERT INTO JOBCARD (JOBCARD_ID,JOB_NAME,JOB_SALARY_MIN,JOB_SALARY_MAX,JOB_SALARY_COUNT,JOB_EDU,JOB_CITY,JOB_DQ,JOB_LINK,JOB_KIND,JOB_EXP_MIN,JOB_EXP_MAX,JOB_UPDATE,CMP_ID_ID,REC_ID_ID,JOB_REFER) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
         mysql_cursor.executemany(jc_sql,self.jc_list)
         mysql_ins.commit()
 
