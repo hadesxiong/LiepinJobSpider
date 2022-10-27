@@ -15,7 +15,7 @@ class JobItem(scrapy.Item):
     job_edu = scrapy.Field() #教育要求
     job_dq = scrapy.Field() #行政区域
     job_link = scrapy.Field() #岗位链接
-    job_title = scrapy.Field() #岗位抬头
+    job_name = scrapy.Field() #岗位抬头
     job_years = scrapy.Field() #工作年限
     job_kind = scrapy.Field() #工作种类？待定
     rec_id = scrapy.Field() #猎头/hrid
