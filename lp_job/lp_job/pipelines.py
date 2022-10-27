@@ -200,7 +200,9 @@ class JobCardPipeline:
             # jc数据处理-job_exp
             # 可能的情况:3-5年,经验不限,10年以上
             job_exp = job_item['job_years']
-            if '-' in job_exp:
+            if job_exp is None:
+                job_exp_list = [0, 99]
+            elif '-' in job_exp:
                 job_exp_list = job_exp.strip('年').split('-')
             elif '以上' in job_exp:
                 job_exp_list = [job_exp.strip('年以上'), 99]
