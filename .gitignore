@@ -5,6 +5,4 @@
 logs/
 scheduler.log
 lp_job/lp_job/configs/
-settings.py
-lp_job/lp_job/settings.py
 *.bkp

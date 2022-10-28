@@ -20,7 +20,7 @@
 项目数据落地通过Redis+Mysql实现，两者定位不同
 
 * Redis：缓存，主要用于除重验证或者其他快速查询
-* Mysql：结构化数据存储
+* Mysql：结构化数据存储（lp_job)
 
 Mysql数据库执行文件：[lpjob_db.sql](https://github.com/hadesxiong/liepinjob-spider/blob/main/lpjob_db.sql "执行文件")
 
@@ -52,6 +52,8 @@ Mysql数据库结构如下：
 
 如果不出现大量爬取的话，正常请求不会触发猎聘的反爬机制审核。
 
+管道默认是关闭的，如果需要开启，请到settings.py中downloader middleware配置开启。
+
 #### 多任务
 
 如果需要进行多岗位/多城市迭代结果进行爬取，可直接运行run.py来实现。该脚本主要基于twisted进行实现，相关文件配置文件请在settings.py中对keyword和city进行配置，keyword和city均为数组形式。
@@ -67,6 +69,8 @@ scrapy crawl lp_jobcard -a key_word=用户运营 -a city=020 -a file_mark=True
 ```shell
 python run.py
 ```
+
+该命令会通过迭代器，讲settings.py中的key_word和city进行组合，生成爬虫命令，进行爬取。
 
 #### 结果查询举例
 
