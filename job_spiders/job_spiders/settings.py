@@ -64,7 +64,7 @@ RANDOMIZE_DOWNLOAD_DELAY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   "job_spiders.pipelines.liepin_pipelines.JobCardPipeline": 300,
+   "job_spiders.pipelines.liepin_jobcard.JobCardPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -100,13 +100,14 @@ REDIS_PORT = 11201
 REDIS_PW = 'Faurecia614'
 # common:公用内容，storge:缓存
 REDIS_DB_COMMON = 0
-REDIS_DB_STORGE = 1
+REDIS_DB_STORGE = 0
 # POSTGRESQL CONF
 POSTGRESQL_HOST = '10.162.165.155'
 POSTGRESQL_PORT = 11003
 POSTGRESQL_DATABASE = 'JOB_ANALYSIS'
 POSTGRESQL_USER = 'postgres'
 POSTGRESQL_PW = 'Faurecia614'
+POSTGRESQL_SCHEMA = 'job_spiders'
 
 # CUSTOM CONF
 KEY_WORD = ["用户运营"]
