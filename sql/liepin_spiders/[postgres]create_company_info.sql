@@ -1,13 +1,12 @@
 CREATE TABLE
-    IF NOT EXISTS "COMPANY_INFO" (
-        "CMP_ID" VARCHAR(32) NOT NULL,
-        "CMP_NAME" VARCHAR(128) NOT NULL,
-        "CMP_SCALE_MIN" INT,
-        "CMP_SCALE_MAX" INT,
-        "CMP_LINK" VARCHAR(256),
-        "CMP_STAGE" VARCHAR(64),
-        "CMP_LOGO" VARCHAR(256),
-        "CMP_INDUSTRY" VARCHAR(64),
-        "CMP_SOURCE" VARCHAR(64),
-        PRIMARY KEY ("CMP_ID")
+    IF NOT EXISTS "company_info" (
+        "cmp_id" VARCHAR (64) NOT NULL,
+        "cmp_name" VARCHAR (128) NOT NULL,
+        "cmp_scale" VARCHAR (128),
+        "cmp_link" VARCHAR (256),
+        "cmp_stage" VARCHAR (64),
+        "cmp_logo" VARCHAR (256),
+        "cmp_industry" VARCHAR (64),
+        "cmp_resource" VARCHAR (64),
+        PRIMARY KEY ("cmp_id")
     );

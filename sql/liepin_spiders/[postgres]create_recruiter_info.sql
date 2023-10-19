@@ -1,11 +1,11 @@
 CREATE TABLE
-    IF NOT EXISTS "RECRUITER_INFO" (
-        "REC_ID" VARCHAR(64) NOT NULL,
-        "IM_ID" VARCHAR(64) NOT NULL,
-        "IM_USERTYPE" VARCHAR(32) NOT NULL,
-        "REC_NAME" VARCHAR(64) NOT NULL,
-        "REC_TITLE" VARCHAR(128),
-        "REC_PIC" VARCHAR(256),
-        "REC_SOURCE" VARCHAR(256),
-        PRIMARY KEY ("REC_ID")
+    IF NOT EXISTS "recruiter_info" (
+        "rec_id" VARCHAR(128) NOT NULL,
+        "rec_imid" VARCHAR(128) NOT NULL,
+        "rec_imtype" VARCHAR(32) NOT NULL,
+        "rec_name" VARCHAR(64) NOT NULL,
+        "rec_title" VARCHAR(128),
+        "rec_img" VARCHAR(256),
+        "rec_resource" VARCHAR(256),
+        PRIMARY KEY ("rec_id")
     );

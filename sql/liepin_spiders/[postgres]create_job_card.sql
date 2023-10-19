@@ -1,21 +1,18 @@
 CREATE TABLE
-    IF NOT EXISTS "JOB_CARD" (
-        "JOBCARD_ID" VARCHAR(64) NOT NULL,
-        "JOB_NAME" VARCHAR(64) NOT NULL,
-        "JOB_REFER" VARCHAR(255),
-        "JOB_SALARY_MIN" INT,
-        "JOB_SALARY_MAX" INT,
-        "JOB_SALARY_COUNT" INT,
-        "JOB_EDU" VARCHAR(64) NOT NULL,
-        "JOB_CITY" VARCHAR(64) NOT NULL,
-        "JOB_DQ" VARCHAR(64),
-        "JOB_LINK" VARCHAR(256),
-        "JOB_KIND" INT,
-        "JOB_EXP_MIN" INT,
-        "JOB_EXP_MAX" INT,
-        "JOB_LABEL" VARCHAR(32) [],
-        "JOB_UPDATE" DATE NOT NULL,
-        "CMP_ID" VARCHAR(32) NOT NULL,
-        "REC_ID" VARCHAR(64) NOT NULL,
-        PRIMARY KEY ("JOBCARD_ID")
+    IF NOT EXISTS "job_card" (
+        "job_id" VARCHAR(128) NOT NULL,
+        "job_name" VARCHAR(128) NOT NULL,
+        "job_refer" VARCHAR(255),
+        "job_salary" VARCHAR(64),
+        "job_edu" VARCHAR(128) NOT NULL,
+        "job_dq" VARCHAR(128),
+        "job_link" VARCHAR(256),
+        "job_kind" VARCHAR(32),
+        "job_years" VARCHAR(64),
+        "job_label" VARCHAR(32) [] NULL,
+        "job_refreshtime" VARCHAR(32),
+        "job_resource" VARCHAR(32),
+        "cmp_id" VARCHAR(32) NULL,
+        "rec_id" VARCHAR(128) NULL,
+        PRIMARY KEY ("job_id")
     )
