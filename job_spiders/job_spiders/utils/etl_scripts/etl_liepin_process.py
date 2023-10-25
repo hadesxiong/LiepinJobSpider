@@ -106,4 +106,3 @@ redis_pool.disconnect()
 # 关闭psql
 psql_cursor.close()
 psql_conn.close()
-
