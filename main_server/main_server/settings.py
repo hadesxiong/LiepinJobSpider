@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'job_analysis_server'
 ]
 
 MIDDLEWARE = [
@@ -84,9 +85,26 @@ DATABASES = {
         'OPTIONS': {
             'options': '-c search_path=main_server'
         }
+    },
+    'job_analysis_db': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'JOB_ANALYSIS',
+        'USER': 'postgres',
+        'PASSWORD': 'Faurecia614',
+        'HOST': '10.162.165.155',
+        'PORT': 11003,
+        'OPTIONS': {
+            'options': '-c search_path=main_server'
+        }
     }
 }
 
+DATABASES_APPS_MAPPING = {
+    'job_analysis_server':'job_analysis_db'
+}
+# 插入数据路由
+
+DATABASE_ROUTERS = ['main_server.routers.DatabaseAppRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
